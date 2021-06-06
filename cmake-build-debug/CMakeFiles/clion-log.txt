@@ -1,0 +1,32 @@
+"C:\Program Files\JetBrains\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" "C:\Users\danie\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\פרויקט גמר שנה א\finalProject"
+-- The C compiler identification is MSVC 19.29.30037.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - failed
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30037/bin/Hostx86/x86/cl.exe
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30037/bin/Hostx86/x86/cl.exe - broken
+CMake Error at C:/Program Files/JetBrains/CLion 2020.3.1/bin/cmake/win/share/cmake-3.19/Modules/CMakeTestCCompiler.cmake:66 (message):
+  The C compiler
+
+    "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30037/bin/Hostx86/x86/cl.exe"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: C:/Users/danie/OneDrive - The Academic College of Tel-Aviv Jaffa - MTA/׳₪׳¨׳•׳™׳§׳˜ ׳’׳�׳¨ ׳©׳ ׳” ׳�/finalProject/cmake-build-debug/CMakeFiles/CMakeTmp
+    
+    Run Build Command(s):nmake /nologo cmTC_6c7b0\fast && makefile(58) : fatal error U1038: internal error : lexer
+    Stop.
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:2 (project)
+
+
+-- Configuring incomplete, errors occurred!
+See also "C:/Users/danie/OneDrive - The Academic College of Tel-Aviv Jaffa - MTA/׳₪׳¨׳•׳™׳§׳˜ ׳’׳�׳¨ ׳©׳ ׳” ׳�/finalProject/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "C:/Users/danie/OneDrive - The Academic College of Tel-Aviv Jaffa - MTA/׳₪׳¨׳•׳™׳§׳˜ ׳’׳�׳¨ ׳©׳ ׳” ׳�/finalProject/cmake-build-debug/CMakeFiles/CMakeError.log".
