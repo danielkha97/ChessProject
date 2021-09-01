@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <Windows.h>
+#include <conio.h>
 
 
 typedef char chessPos[2]; /*each position is represented by X,Y cords of the board*/
@@ -51,9 +53,11 @@ typedef struct _pathTree {
 	treeNode* root;
 } pathTree;
 
-
-
-
+void welcomeScreen();
+void printMenu();
+void menu();
+chessPos* option1();
+bool isValidInput(chessPos position);
 void getCoordinates(chessPos position, int* x, int* y);
 void memAllocTest(void* p);
 void fileOpenCheck(FILE* file);

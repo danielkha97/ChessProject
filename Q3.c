@@ -3,68 +3,89 @@
 
 pathTree findAllPossibleKnightPaths(chessPos* startingPosition) /*this function calls the recursive function*/
 {
-	pathTree tr; /*the tree we need to build*/
+	pathTree tr; /*the tree will be built*/
 	tr.root = NULL;
 	chessPosArray*** validMoves = validKnightMoves();
 
 	bool isValidPath[ROWS][COLS] = { false }; /*bool array that saves the path to a specific part of the board*/
+
 	tr.root = findAllPossibleKnightPathsRec(startingPosition, validMoves, isValidPath); /*the recursive function that builds the tree*/
 	return tr;
 }
 
 treeNode* findAllPossibleKnightPathsRec(chessPos startingPosition, chessPosArray*** validMoves, bool isValidPath[][COLS])
-/*this is the recursive function that finds all the possible paths*/
+/*recursive function of findAllPossibleKnightPaths*/
 {
-	/*variables*/
-	int x, y;
-	int i;
-	treeNode* res = createNewTreeNode(startingPosition, NULL);
-	treeNode* currNode;
-	treeNodeListCell* nextCell = NULL;
-	treeNodeListCell* currCell = NULL;
+	treeNode* resNode = createNewTreeNode(startingPosition, NULL);
 
-	if (endOfPathCheck(startingPosition, validMoves, isValidPath)) /*checks if there is no place to continue to*/
-		return res;
+	if (resNode == NULL)
+		return NULL; 
 
-	getCoordinates(startingPosition, &x, &y);
-	isValidPath[x][y] = true; /*using bool matrix to check if a cell is "used" before*/
+	int x, y, i;
+	treeNodeListCell* nextListCell = NULL;
+	treeNodeListCell* currListCell = NULL;
+	treeNode* currTreeNode;
 
-	for (i = 0; i < validMoves[x][y]->size; i++)
+	if (endOfPathCheck(startingPosition, validMoves, isValidPath)) 
+		return resNode;
+
+	else
 	{
-		if (possiblePossCheck(validMoves[x][y]->positions[i], isValidPath))
+		getCoordinates(startingPosition, &x, &y);
+		isValidPath[x][y] = true;
+
+		for (i = 0; i < validMoves[x][y]->size; i++)
 		{
-			currNode = findAllPossibleKnightPathsRec(validMoves[x][y]->positions[i], validMoves, isValidPath);
-			currCell = createNewTreeNodeListCell(currNode, nextCell);
-			nextCell = currCell;
+			if (possiblePossCheck(validMoves[x][y]->positions[i], isValidPath))
+			{
+				currTreeNode = findAllPossibleKnightPathsRec(validMoves[x][y]->positions[i], validMoves, isValidPath);
+				currListCell = createNewTreeNodeListCell(currTreeNode, nextListCell);
+
+				nextListCell = currListCell;
+			}
 		}
+
+		resNode->next_possible_positions = currListCell;
 	}
 
-	res->next_possible_positions = currCell;
-	isValidPath[x][y] = false;
-	return res;
+	isValidPath[x][y] = false; 
+	return resNode;               
 }
 
 treeNode* createNewTreeNode(chessPos position, treeNodeListCell* next_possible_positions)
 /*this function creates new tree node*/
 {
-	treeNode* res = (treeNode*)malloc(sizeof(treeNode));
-	memAllocTest(res);
+	treeNode* resNode = (treeNode*)malloc(sizeof(treeNode));
 
-	(res->position)[0] = position[0];
-	(res->position)[1] = position[1];
-	res->next_possible_positions = next_possible_positions;
-	return res;
+	if (resNode == NULL)
+	{
+		printf("Memory allocation failed!\n");
+		return NULL;
+	}
+
+	(resNode->position)[0] = position[0];
+	(resNode->position)[1] = position[1];
+
+	resNode->next_possible_positions = next_possible_positions;
+
+	return resNode;
 }
 
 treeNodeListCell* createNewTreeNodeListCell(treeNode* node, treeNodeListCell* next)
 /*this function create new list cell*/
 {
-	treeNodeListCell* res = (treeNodeListCell*)malloc(sizeof(treeNodeListCell));
-	memAllocTest(res);
+	treeNodeListCell* resCell = (treeNodeListCell*)malloc(sizeof(treeNodeListCell));
 
-	res->node = node;
-	res->next = next;
-	return res;
+	if (resCell == NULL)
+	{
+		printf("Memory allocation failed!\n");
+		return NULL;
+	}
+
+	resCell->node = node;
+	resCell->next = next;
+
+	return resCell;
 }
 
 bool endOfPathCheck(chessPos position, chessPosArray*** validMoves, bool isValidPath[][COLS])

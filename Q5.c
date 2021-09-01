@@ -22,12 +22,12 @@ void saveToBinFile(char* file_name, chessPosList* pos_list)
 		if (countOfZeros > 0 ) 
 		{
 			lastByte = lastByteFromFile(file);
-			mask = maskMaker(posConvertion, countOfZeros); /*making the right mak according to the countOfZeros*/
+			mask = maskMaker(posConvertion, countOfZeros); /*making the right mask according to the countOfZeros*/
 			updateByte(file, lastByte, mask);
 			posConvertion <<= countOfZeros;
 		}
 
-		if (countOfZeros == 8)/*if this term is true we "closed a comlepte BYTE*/
+		if (countOfZeros == 8)/*if this term is true we "closed" a comlepte BYTE*/
 			countOfZeros = 0;
 
 		else
@@ -60,14 +60,14 @@ void updateByte(FILE* file, BYTE prevByte, BYTE mask)
 }
 
 BYTE maskMaker(BYTE posConvertion, int countOfZeros) 
-/*this function makes the needed mask*/
+/*creates required mask*/
 {
 	int toMove = 8 - countOfZeros;
 	return posConvertion >> toMove;
 }
 
 short findListSize(chessPosList* pos_list)
-/*this function returns the size of the chain*/
+/*determines list size*/
 {
 	short size = 0;
 	chessPosCell* curr = pos_list->head;
@@ -82,7 +82,7 @@ short findListSize(chessPosList* pos_list)
 }
 
 BYTE posToByte(chessPos position)
-/*this function  converts the position array into 8 bits*/
+/*converts the position into 8 bits*/
 {
 	BYTE x, y;
 

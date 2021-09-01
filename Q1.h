@@ -10,5 +10,5 @@ chessPosArray*** boardCreation();
 chessPosArray* cellStepsCheck(char row, char col, chessPosArray* posArray);
 void freeMat(chessPosArray*** board);
 
-#endif // !Q1_h
+#endif 
 

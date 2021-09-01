@@ -24,3 +24,4 @@ void getCoordinates(chessPos position, int* x, int* y)
 	*x = position[0] - 'A';
 	*y = position[1] - '1';
 }
+

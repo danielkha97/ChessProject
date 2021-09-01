@@ -1,14 +1,8 @@
 #ifndef Q3_h
 #define Q3_h
 
-
-
-
 #include "common.h"
 #include "Q1.h"
-
-
-
 
 pathTree findAllPossibleKnightPaths(chessPos* startingPosition);
 treeNode* findAllPossibleKnightPathsRec(chessPos startingPosition, chessPosArray*** validMoves, bool isValidPath[][COLS]);

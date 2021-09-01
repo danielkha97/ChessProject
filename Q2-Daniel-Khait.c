@@ -1,7 +1,6 @@
 #include "Q2.h"
 
 chessPosCell* createNewChessPosCell(chessPos position, chessPosCell* next)
-/*this function creates new chess pos cell*/
 {
 	chessPosCell* cpCell = (chessPosCell*)malloc(sizeof(chessPosCell));
 	memAllocTest(cpCell);
@@ -12,8 +11,7 @@ chessPosCell* createNewChessPosCell(chessPos position, chessPosCell* next)
 	return cpCell;
 }
 
-void removeCell(chessPosCell* prev)
-/*this function removes a cell and frees it*/
+void removeChessPosCell(chessPosCell* prev)
 {
 	chessPosCell* remove = prev->next;
 	prev->next = remove->next;
@@ -21,31 +19,30 @@ void removeCell(chessPosCell* prev)
 }
 
 void display(chessPosList* lst)
-/*the function from task 2*/
 {
 	int x, y;
-	bool isExistInList[ROWS][COLS] = { false }; /*a boolean array that checks if a cell exists in the list*/
-	chessPosCell* curr = lst->head; 
+	bool isExistInList[ROWS][COLS] = { false };
+	chessPosCell* curr = lst->head;
 	chessPosCell* prev = NULL;
 
 	while (curr != NULL)
 	{
-		x = curr->position[0] - 'A'; 
+		x = curr->position[0] - 'A';
 		y = curr->position[1] - '1';
 
-		if (!isExistInList[x][y]) /* checking if the cell is already in the list*/
-			isExistInList[x][y] = true; /*if not, we change his place to true*/
+		if (!isExistInList[x][y])
+			isExistInList[x][y] = true;
 
 		else
 		{
-			removeCell(prev); /*if yes, we remove it form the list*/
-			curr = prev; /*we return the curr node to the prev one because we the removed a cell before*/
+			removeChessPosCell(prev);
+			curr = prev;
 		}
 
 		prev = curr;
 		curr = curr->next;
 	}
-	printBoard(lst); /*printing the board*/
+	printBoard(lst);
 }
 
 void printBoard(chessPosList* lst)
@@ -65,25 +62,21 @@ void printBoard(chessPosList* lst)
 		curr = curr->next;
 	}
 
-	for (i = 0; i < ROWS; i++) /*loops for printing the board according to its size*/
+	for (i = 0; i < ROWS; i++)
 	{
 		if (i == 0)
 		{
-			printf("+---+");
-
+			printf("x---^");
 			for (j = 0; j < ROWS; j++)
-				printf("---+");
+				printf("---^");
 
-			printf("\n|   |");
-
+			printf("\n| + |");
 			for (j = 0; j < ROWS; j++)
 				printf(" %d |", j);
 
-			printf("\n|---|");
-
+			printf("\n|---!");
 			for (j = 0; j < ROWS; j++)
 				printf("---|");
-
 			printf("\n");
 		}
 
@@ -93,30 +86,19 @@ void printBoard(chessPosList* lst)
 		{
 			if (gameBoard[i][j] == 0)
 				printf("   |");
-			else if (gameBoard[i][j] >= 10)
-				printf("%d |", gameBoard[i][j]);
 			else
 				printf(" %d |", gameBoard[i][j]);
 		}
 
 		printf("\n");
-		printf("+---+");
-
-		for (j = 0; j < ROWS - 1; j++)
-		{
-			printf("---+");
-		}
-
-		printf("---+\n");
+		printf("+---+---+---+---+---+---+---+---+---+\n");
 	}
 
 }
 
 chessPosList* makeEmptyChessPosList()
-/*making empty list*/
 {
-
-	chessPosList* list = malloc(sizeof(chessPosList)); 
+	chessPosList* list = malloc(sizeof(chessPosList));
 	memAllocTest(list);
 
 	list->head = NULL;
@@ -125,7 +107,6 @@ chessPosList* makeEmptyChessPosList()
 }
 
 bool isEmptyChessPosList(chessPosList list)
-/*checking if a list is empty or not*/
 {
 	if (list.head == NULL)
 		return true;
@@ -133,7 +114,6 @@ bool isEmptyChessPosList(chessPosList list)
 }
 
 void addToStartOfChessPosList(chessPosList* list, chessPosCell* cell)
-/*this function adds a cell into the heaf of the list*/
 {
 	if (isEmptyChessPosList(*list))
 		list->head = list->tail = cell;
@@ -166,7 +146,6 @@ void freeChessPosList(chessPosList* list)
 
 void addToListTail(chessPosList* list, int x, int y)
 {
-	/*this function adds a cell into the end of the list*/
 	chessPos* cpArr = setCoordinates(x, y);
 	chessPosCell* cpCell = createNewChessPosCell(*cpArr, NULL);
 
